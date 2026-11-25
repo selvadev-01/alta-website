@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: #0d1012;
+  color: #eceeea;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #62cba8;
+  color: #0d1012;
+}
+
+:focus-visible {
+  outline: 2px solid #62cba8;
+  outline-offset: 3px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.85);
+}
+
+/* headline voice */
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+
+/* legibility scrim under captions: a plain linear fade from the bottom edge */
+.scrim-bottom {
+  background: linear-gradient(to top, rgba(13, 16, 18, 0.78) 0%, rgba(13, 16, 18, 0.34) 26%, rgba(13, 16, 18, 0) 48%);
+}
+.scrim-left {
+  background: linear-gradient(to right, rgba(13, 16, 18, 0.55) 0%, rgba(13, 16, 18, 0.2) 34%, rgba(13, 16, 18, 0) 56%);
+}
+
+/* caption entrance when the scene changes */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rise-2 {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+/* hero scroll reminder */
+@keyframes scroll-line {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(200%);
+  }
+}
+.scroll-line {
+  animation: scroll-line 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+/* brushed steel lift door */
+.lift-door {
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 3px),
+    linear-gradient(90deg, #1a2024 0%, #2b3337 45%, #20272b 55%, #171c1f 100%);
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.55);
+}
+
+/* large hollow room name */
+.outline-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(236, 238, 234, 0.6);
+}
+
+/* caption words rise one after another */
+@keyframes word-rise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: none;
+  }
+}
+.word-rise {
+  animation: word-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* amenity tiles: rise in when they enter, tilt toward the mouse */
+.tile {
+  transform: perspective(1200px) translateY(70px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  opacity: 0;
+  transition:
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 1s ease;
+}
+.tile.in {
+  transform: perspective(1200px) translateY(0) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  opacity: 1;
+}
+.tile.in.tilting {
+  transition:
+    transform 0.25s ease-out,
+    opacity 1s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile {
+    transform: none;
+    opacity: 1;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
